@@ -21,6 +21,11 @@ h1 {
   box-sizing: border-box;
 }
 
+.logo-container {
+  display: flex;
+  padding-bottom: 40px;
+}
+
 .expense-tracker {
   display: flex;
   gap: 32px;
@@ -34,6 +39,7 @@ h1 {
   width: 100%;
   /* border-collapse: collapse; */
   align-self: flex-start;
+  box-shadow: 2px 2px 14px #fff;
 }
 .expense-table tr td {
   border: 1px solid #fff;
@@ -91,18 +97,23 @@ h1 {
 }
 
 .input-container label {
-  font-size: 14px;
+  font-size: 16px;
   color: #fff;
+  font-weight: bolder;
 }
 
 .input-container input {
-  height: 28px;
+  height: 32px;
   font-family: inherit;
+  background: #eff3ea;
+  font-family: 12px;
 }
 
 #category {
-  height: 28px;
+  height: 32px;
   font: inherit;
+  background: #eff3ea;
+  font-family: 12px;
 }
 
 .add-btn {
