@@ -2,12 +2,18 @@ import React, { useState } from "react";
 import InputField from "./InputField";
 import SelectMenu from "./SelectMenu";
 
-function ExpenseForm({ setExpenses }) {
-  const [expense, setExpense] = useState({
-    title: "",
-    category: "",
-    price: "",
-  });
+function ExpenseForm({
+  setExpenses,
+  expense,
+  setExpense,
+  editing,
+  setEditing,
+}) {
+  // const [expense, setExpense] = useState({
+  //   title: "",
+  //   category: "",
+  //   price: "",
+  // });
 
   const validateConfig = {
     title: [
@@ -18,7 +24,7 @@ function ExpenseForm({ setExpenses }) {
     price: [
       { require: true, message: "Price is required" },
       {
-        pattern: /[1-100]/,
+        pattern: /^0|[1-9]\d*$/,
         message: "Mistake!, Please enter the amount",
       },
     ],
@@ -52,8 +58,27 @@ function ExpenseForm({ setExpenses }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const validateResult = validate(expense);
     if (Object.keys(validateResult).length) return;
+
+    if (editing) {
+      setExpenses((prevstate) =>
+        prevstate.map((editingData) => {
+          if (editingData.id === editing) {
+            return { ...expense, id: editing };
+          }
+          return editingData;
+        })
+      );
+      setExpense({
+        title: "",
+        category: "",
+        price: "",
+      });
+      setEditing("");
+      return;
+    }
 
     setExpenses((prevState) => [
       ...prevState,
@@ -119,7 +144,7 @@ function ExpenseForm({ setExpenses }) {
           onChange={handleChange}
           error={errors.price}
         />
-        <button className="add-btn">Add</button>
+        <button className="add-btn">{editing ? "Save" : "Add"}</button>
       </form>
     </>
   );
